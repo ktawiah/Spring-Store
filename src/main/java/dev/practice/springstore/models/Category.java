@@ -2,12 +2,14 @@ package dev.practice.springstore.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,4 +24,6 @@ public class Category {
     private String name;
 
 
+    public Category(String name) {
+    }
 }

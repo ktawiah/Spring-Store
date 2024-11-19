@@ -4,17 +4,29 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Product {
+    public Product(String name, BigDecimal price, int quantity, int inventory, Category category, String description, String brand) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.inventory = inventory;
+        this.category = category;
+        this.description = description;
+        this.brand = brand;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,4 +54,6 @@ public class Product {
 
     private String brand;
 
+    public Product(@Size(min = 3, max = 255) String name, @PositiveOrZero BigDecimal price, String brand, String description, @PositiveOrZero int inventory, Category category) {
+    }
 }

@@ -3,6 +3,7 @@ package dev.practice.springstore.services.product;
 import dev.practice.springstore.models.Product;
 import dev.practice.springstore.requests.AddProductRequest;
 import dev.practice.springstore.requests.ProductUpdateRequest;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

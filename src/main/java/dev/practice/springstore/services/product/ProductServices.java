@@ -5,7 +5,8 @@ import dev.practice.springstore.models.Category;
 import dev.practice.springstore.models.Product;
 import dev.practice.springstore.repository.CategoryRepository;
 import dev.practice.springstore.repository.ProductRepository;
-import dev.practice.springstore.requests.AddProduct;
+import dev.practice.springstore.requests.AddProductRequest;
+import dev.practice.springstore.requests.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +17,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServices implements iProductService {
     final private ProductRepository productRepository;
+
     final private CategoryRepository categoryRepository;
 
     @Override
-    public Product addProduct(AddProduct request) {
+    public Product addProduct(AddProductRequest request) {
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
                     return categoryRepository.save(newCategory);
                 });
         request.setCategory(category);
-        return productRepository.save(createProduct(request, category));
-    }
-
-    private Product createProduct(AddProduct product, Category category) {
-        return new Product(
-                product.getName(),
-                product.getPrice(),
-                product.getBrand(),
-                product.getDescription(),
-                product.getInventory(),
+        Product newProduct = new Product(
+                request.getName(),
+                request.getPrice(),
+                request.getBrand(),
+                request.getDescription(),
+                request.getInventory(),
                 category
         );
+        return productRepository.save(newProduct);
     }
 
     @Override
@@ -58,8 +57,21 @@ public class ProductServices implements iProductService {
     }
 
     @Override
-    public void updateProduct(Product product, Long id) {
+    public Product updateProduct(ProductUpdateRequest request, Long id) {
+        return productRepository.findById(id)
+                .map(existingProduct -> updateExistingProduct(existingProduct, request))
+                .map(productRepository::save)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+    }
 
+    public Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request) {
+        existingProduct.setBrand(request.getBrand());
+        existingProduct.setName(request.getName());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setDescription(request.getDescription());
+        existingProduct.setInventory(request.getInventory());
+        existingProduct.setCategory(categoryRepository.findByName(request.getCategory().getName()));
+        return existingProduct;
     }
 
     @Override

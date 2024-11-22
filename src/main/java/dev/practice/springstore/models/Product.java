@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product {
     public Product(String name, BigDecimal price, int quantity, int inventory, Category category, String description, String brand) {

@@ -1,12 +1,13 @@
 package dev.practice.springstore.services.product;
 
 import dev.practice.springstore.models.Product;
-import dev.practice.springstore.requests.AddProduct;
+import dev.practice.springstore.requests.AddProductRequest;
+import dev.practice.springstore.requests.ProductUpdateRequest;
 
 import java.util.List;
 
 public interface iProductService {
-    Product addProduct(AddProduct request);
+    Product addProduct(AddProductRequest request);
 
     List<Product> getAllProducts();
 
@@ -14,7 +15,7 @@ public interface iProductService {
 
     void deleteProduct(Long id);
 
-    void updateProduct(Product product, Long id);
+    Product updateProduct(ProductUpdateRequest request, Long id);
 
     List<Product> getProductsByCategory (String category);
 

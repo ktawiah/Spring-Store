@@ -38,7 +38,7 @@ Spring Store is a robust e-commerce backend system built using Spring Boot 3.3.5
 git clone https://github.com/ktawiah/spring-store.git
 ```
 2. Configure
-```java
+```
 spring.datasource.url=jdbc:postgresql://localhost:5432/springstore
 spring.datasource.username=your_username
 spring.datasource.password=your_password

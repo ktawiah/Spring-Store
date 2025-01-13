@@ -3,7 +3,6 @@ package dev.practice.springstore.models.cart;
 
 import dev.practice.springstore.models.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

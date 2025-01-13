@@ -1,6 +1,8 @@
 package dev.practice.springstore.requests;
 
-import dev.practice.springstore.models.Category;
+import dev.practice.springstore.models.product.Category;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,12 +11,13 @@ import java.math.BigDecimal;
 public class AddProductRequest {
     private Long id;
 
+    @Size(min = 3, max = 255)
     private String name;
 
+    @PositiveOrZero
     private BigDecimal price;
 
-    private int quantity;
-
+    @PositiveOrZero
     private int inventory;
 
     private Category category;

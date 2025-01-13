@@ -1,9 +1,9 @@
 package dev.practice.springstore.services.product;
 
-import dev.practice.springstore.models.Product;
+import dev.practice.springstore.dto.ProductDTO;
+import dev.practice.springstore.models.product.Product;
 import dev.practice.springstore.requests.AddProductRequest;
 import dev.practice.springstore.requests.ProductUpdateRequest;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -32,4 +32,5 @@ public interface iProductService {
 
     Long countProductsByBrandAndName(String brand, String name);
 
+    ProductDTO convertToDTO(Product createdProduct);
 }

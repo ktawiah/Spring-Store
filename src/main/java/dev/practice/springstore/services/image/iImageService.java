@@ -1,7 +1,7 @@
 package dev.practice.springstore.services.image;
 
 import dev.practice.springstore.dto.ImageDTO;
-import dev.practice.springstore.models.Image;
+import dev.practice.springstore.models.product.Image;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

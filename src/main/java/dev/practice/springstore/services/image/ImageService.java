@@ -2,11 +2,13 @@ package dev.practice.springstore.services.image;
 
 import dev.practice.springstore.dto.ImageDTO;
 import dev.practice.springstore.exceptions.ImageException;
-import dev.practice.springstore.models.Image;
-import dev.practice.springstore.models.Product;
+import dev.practice.springstore.models.product.Image;
+import dev.practice.springstore.models.product.Product;
 import dev.practice.springstore.repository.ImageRepository;
 import dev.practice.springstore.services.product.ProductServices;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,14 +21,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ImageService implements iImageService {
-    final private ImageRepository repository;
-    final private ProductServices productServices;
+    private final ImageRepository repository;
+    private final ProductServices productServices;
 
     @Override
     public Image getImageById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ImageException("No image found with id:" + id));
     }
 
+    @Transactional
     @Override
     public void deleteImageById(Long id) {
         repository.findById(id).ifPresentOrElse(repository::delete, () -> {
@@ -34,6 +37,7 @@ public class ImageService implements iImageService {
         });
     }
 
+    @Transactional
     @Override
     public List<ImageDTO> saveImage(List<MultipartFile> files, Long productId) {
         Product product = productServices.getProductById(productId);
@@ -79,6 +83,7 @@ public class ImageService implements iImageService {
     }
 
 
+    @Transactional
     @Override
     public void updateImage(MultipartFile file, Long imageId) {
         Image image = getImageById(imageId);

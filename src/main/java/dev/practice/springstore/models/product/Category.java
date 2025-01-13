@@ -1,5 +1,6 @@
-package dev.practice.springstore.models;
+package dev.practice.springstore.models.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
@@ -25,5 +27,6 @@ public class Category {
 
 
     public Category(String name) {
+        this.name = name;
     }
 }

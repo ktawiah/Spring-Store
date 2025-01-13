@@ -1,6 +1,6 @@
 package dev.practice.springstore.services.category;
 
-import dev.practice.springstore.models.Category;
+import dev.practice.springstore.models.product.Category;
 
 import java.util.List;
 

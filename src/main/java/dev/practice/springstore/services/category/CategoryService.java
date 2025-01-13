@@ -1,8 +1,9 @@
 package dev.practice.springstore.services.category;
 
 import dev.practice.springstore.exceptions.CategoryNotFoundException;
-import dev.practice.springstore.models.Category;
+import dev.practice.springstore.models.product.Category;
 import dev.practice.springstore.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,15 @@ public class CategoryService implements iCategoryService{
     final private CategoryRepository repository;
     private final CategoryRepository categoryRepository;
 
+    @Transactional
     @Override
     public Category addCategory(Category category) {
-        return Optional.of(category).filter(category1 -> !categoryRepository.existsByName(category1.getName()))
+        return Optional.of(category).filter(newCategory -> !categoryRepository.existsByName(newCategory.getName()))
                 .map(categoryRepository::save)
                 .orElseThrow(() -> new CategoryNotFoundException("Category already exists!"));
     }
 
+    @Transactional
     @Override
     public void deleteCategory(Long id) {
         repository.findById(id).ifPresentOrElse(repository::delete, () -> {
@@ -30,6 +33,7 @@ public class CategoryService implements iCategoryService{
         });
     }
 
+    @Transactional
     @Override
     public Category updateCategory(Category category, Long id) {
         return Optional.ofNullable(getCategoryById(id)).map(oldCategory -> {

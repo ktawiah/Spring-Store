@@ -3,6 +3,7 @@ package dev.practice.springstore.models.cart;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.practice.springstore.models.product.Product;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class CartItem {
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
 
-    @Size(min = 0)
+    @Min(0)
     private int quantity;
 
     @ManyToOne
